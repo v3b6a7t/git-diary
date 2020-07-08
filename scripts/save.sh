@@ -1,5 +1,8 @@
 #!/bin/bash
 
+
+# FUNCTIONS DEFUNINITIONS
+
 main() {
     if [ $1 = "all" ]
     then
@@ -36,6 +39,7 @@ info() {
     echo ---[ $1 ]---
     echo
 }
+
 
 
 # BODY SCRIPT
