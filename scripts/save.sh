@@ -9,7 +9,7 @@ fi
 # FUNCTIONS DEFUNINITIONS
 
 main() {
-    if [ $1 = "all" ] || [ $1 = "other"]
+    if [ $1 = "all" ] || [ $1 = "other" ]
     then
         git_add '.'
         git_commit $1
