@@ -6,9 +6,9 @@ then
     exit 1
 fi
 
-# ==========================
-# FUNCTIONS DEFUNINITIONS
-# ==========================
+# ================================
+# SCRIPT FUNCTIONS DEFININITIONS
+# ================================
 
 # MAIN 
 # $1 -- param to run git process
@@ -38,34 +38,8 @@ process() {
     fi
 }
 
-
-git_add() {
-
-    if [ $1 = '.' ]
-    then 
-        git add .
-    else
-        git reset HEAD `git ls-files *[^$1]`
-        git add `git ls-files -m -d -o $1/*`
-    fi
-}
-
-
-git_commit() {
-    
-    info "Start commit '$1'"
-    git commit -m "[${1^^}:`git log --oneline  | grep "\[${1^^}:[0-9]*\]" -c`] `date +'%Y-%m-%d %H:%M:%S.%3N'`"
-
-    info "End commit '$1'"
-    git log --oneline -1
-    
-    info "Show commit"
-    git cat-file -p `git rev-list HEAD -1`
-
-    info "Show commited tree"
-    git ls-tree `git rev-list HEAD -1`
-}
-
+# INFO
+# $1 -- param to display info
 
 info() {
     echo
@@ -74,8 +48,48 @@ info() {
 }
 
 
+# ================================
+# GIT FUNCTIONS DEFINITIONS
+# ================================
 
-# BODY SCRIPT
+
+# git_add $1
+
+git_add() {
+
+    if [ $1 = '.' ]
+    then 
+        git add .
+    else
+        git reset -q HEAD `git ls-files *[^$1]`
+        git add `git ls-files -m -d -o $1/*`
+    fi
+
+    info "Status after staged"
+    git status
+}
+
+# git_commit $1
+
+git_commit() {
+    
+    info "Commit '$1'"
+    git commit -m "[${1^^}:`git log --oneline  | grep "\[${1^^}:[0-9]*\]" -c`] `date +'%Y-%m-%d %H:%M:%S.%3N'`"
+
+    info "Commited '$1'"
+    git log --oneline -1
+    
+    info "Last commit"
+    git cat-file -p `git rev-list HEAD -1`
+
+    info "Tree commit"
+    git ls-tree `git rev-list HEAD -1`
+}
+
+
+# ================================
+# BODY OF SCRIPT
+# ================================
 
 clear
 
