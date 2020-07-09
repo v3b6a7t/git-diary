@@ -6,22 +6,41 @@ then
     exit 1
 fi
 
+# ==========================
 # FUNCTIONS DEFUNINITIONS
+# ==========================
+
+# MAIN 
+# $1 -- param to run git process
 
 main() {
     if [ $1 = "all" ] || [ $1 = "other" ]
     then
-        git_add '.'
-        git_commit $1
+        process '.' $1
 
     elif [ `ls -dl */ | grep "\s$1/$" -c` -gt 0 ]
     then
-        git_add $1
-        git_commit $1
+        process $1 $1
+
     fi
 }
 
+
+# PROCESS 
+# $1 -- param to 'git_add'
+# $2 -- param to 'git_commit'
+
+process() {
+    if [ `git ls-files -m -d -o $1 | wc -l` -gt 0 ]
+    then 
+        git_add $1
+        git_commit $2
+    fi
+}
+
+
 git_add() {
+
     if [ $1 = '.' ]
     then 
         git add .
@@ -31,11 +50,12 @@ git_add() {
     fi
 }
 
+
 git_commit() {
     
     info "Start commit '$1'"
     git commit -m "[${1^^}:`git log --oneline  | grep "\[${1^^}:[0-9]*\]" -c`] `date +'%Y-%m-%d %H:%M:%S.%3N'`"
-    
+
     info "End commit '$1'"
     git log --oneline -1
     
