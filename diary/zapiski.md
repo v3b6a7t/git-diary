@@ -14,7 +14,7 @@ Mam nadzieję rozwijać mój dziwny pamiętnik oparty na narzędziach `git` i po
 
 ## Co należy sobie przypomnieć z `git`?
 
-* Sposób generowania kody hash
+* ~~Sposób generowania kody hash~~ Jest to polecenie `hash-object...
 
 
 ## Jak to więc działa?
