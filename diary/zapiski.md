@@ -2,6 +2,7 @@
 
 Mam nadzieję rozwijać mój dziwny pamiętnik oparty na narzędziach `git` i poleniach `bash`;)
 
+
 ## Co jest do zrobienia
 
 * ~~Skrypt rozruchowy praszaczający korztstanie z aplikacji.~~
@@ -9,6 +10,11 @@ Mam nadzieję rozwijać mój dziwny pamiętnik oparty na narzędziach `git` i po
 * Implementacja `git push`
 * Automatyczna obsługa wielu zdalnych repozytoriów `git remote`
 * Automatyczna obsługa wielu lokalnych i zdalnych gałęzi `git branch -a`
+
+
+## Co należy sobie przypomnieć z `git`?
+
+* Sposób generowania kody hash
 
 
 ## Jak to więc działa?
