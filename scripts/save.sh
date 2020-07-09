@@ -79,11 +79,13 @@ git_commit() {
     info "Commited '$1'"
     git log --oneline -1
     
-    info "Last commit"
-    git cat-file -p `git rev-list HEAD -1`
+    REV_PARSE=`git rev-parse HEAD`
 
-    info "Tree commit"
-    git ls-tree `git rev-list HEAD -1`
+    info "Last commit (${REV_PARSE:0:7})"
+    git cat-file -p $REV_PARSE
+
+    info "Tree commit (${REV_PARSE:0:7})"
+    git ls-tree $REV_PARSE
 }
 
 

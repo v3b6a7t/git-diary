@@ -1,0 +1,15 @@
+#!/bin/bash
+
+SCRIPT_DIR='./scripts';
+
+if [ "_$1_" = "__" ] || [ `ls ./scripts | grep $1.sh -c` = 0 ]
+then SCRIPT="show.sh"
+else SCRIPT="$1.sh"
+fi
+
+if [ "_$2_" = "__" ] || [ `ls -dl */ | grep "\s$2/$" -c` = 0 ]
+then SCRIPT_PARAM="diary"
+else SCRIPT_PARAM=$2
+fi
+
+$SCRIPT_DIR/$SCRIPT $SCRIPT_PARAM
