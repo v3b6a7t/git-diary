@@ -8,7 +8,7 @@
 # według wskazanego działania
 # na przykład:
 
-DIR="`dirname $0`/remote"
+DIR=`dirname $0`
 
 for REMOTE_BRANCH in `git branch -r`
 do

@@ -75,7 +75,7 @@ git_add() {
         git add .
     else
         git reset -q HEAD `git ls-files *[^$1]`
-        git add `git ls-files -m -d -o $1/*`
+        git add `git ls-files -m -d -o $1/`
     fi
 
     if [ $DISPLAY = "full" ]
