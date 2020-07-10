@@ -3,7 +3,7 @@ echo
 if [ `git ls-files -m $1 | wc -l` -gt 0 ]
 then
     echo -------------------------------------------
-    git ls-files -m $1
+    git ls-files -m -d -o $1
     echo -------------------------------------------
 fi
 
