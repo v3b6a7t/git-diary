@@ -6,7 +6,8 @@ then
     exit 1
 fi
 
-for ARG in $*; do
+for ARG in $*
+do
     if [ $ARG = "--full" ]
     then DISPLAY=full; break;
     else DISPLAY=short
