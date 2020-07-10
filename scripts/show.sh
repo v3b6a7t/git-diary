@@ -5,27 +5,24 @@
 # $2 -- remote branch
 
 
-info() {
-    echo -e "\e[7m $1 \e[27m"
-}
-
-echo 
+source "`dirname $0`/utils/display.sh"
 
 if [ "_$2_" = "__" ]
 then 
-    info "Branch: '`git rev-parse --abbrev-ref HEAD`', param: '$1'"
+    display_info "Branch: '`git rev-parse --abbrev-ref HEAD`', param: '$1'"
 
     if [ `git ls-files -m $1 | wc -l` -gt 0 ]
     then
-        echo
+        echo -e $DISPLAY_WARNING_BEGIN
         git ls-files -m -d -o -v $1
+        echo -e $DISPLAY_WARNING_END
     fi
 
 else 
-    info "Remote: '$2', param: '$1'"
+    display_info "Remote: '$2', param: '$1'"
 
 fi
 
-echo -e "\e[2m"
+echo -e $DISPLAY_GRAY_BEGIN
 git log --oneline $2 | grep "\[${1^^}:[0-9]*\]"
-echo -e "\e[22m"
+echo -e $DISPLAY_GRAY_END

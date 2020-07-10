@@ -1,9 +1,11 @@
 #!/bin/bash
 
+source "`dirname $0`/utils/display.sh"
+
 if [ "_$1_" = "__" ] 
 then
-    echo "Error: Required parameter!"
-    exit 1
+    display_warning "Error: Required parameter!"
+    echo; exit 1
 fi
 
 for ARG in $*
@@ -51,12 +53,8 @@ process() {
 
 info() {
     if [ $DISPLAY = "full" ]
-    then
-        echo
-        echo -e "\e[7m $1 \e[27m"
-        echo
-    else 
-        echo
+    then display_info $1; echo
+    else echo
     fi
 }
 
