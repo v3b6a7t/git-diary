@@ -53,7 +53,7 @@ info() {
     if [ $DISPLAY = "full" ]
     then
         echo
-        echo "---[ $1 ]---"
+        echo -e "\e[7m $1 \e[27m"
         echo
     else 
         echo
