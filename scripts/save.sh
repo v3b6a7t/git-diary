@@ -11,14 +11,16 @@ fi
 for ARG in $*
 do
     if [ $ARG = "--full" ]
-    then DISPLAY=full; break;
-    else DISPLAY=short
+    then DISPLAY_MODE=full; break;
+    else DISPLAY_MODE=short
     fi
 done
+
 
 # ================================
 # SCRIPT FUNCTIONS DEFININITIONS
 # ================================
+
 
 # MAIN 
 # $1 -- start param to run git process
@@ -52,7 +54,7 @@ process() {
 # $1 -- param to display info
 
 info() {
-    if [ $DISPLAY = "full" ]
+    if [ $DISPLAY_MODE = "full" ]
     then display_info $1; echo
     else echo
     fi
@@ -76,7 +78,7 @@ git_add() {
         git add `git ls-files -m -d -o $1/`
     fi
 
-    if [ $DISPLAY = "full" ]
+    if [ $DISPLAY_MODE = "full" ]
     then
         info "Status after staged"
         git status
@@ -94,15 +96,19 @@ git_commit() {
     info "Commited '$1'"
     git log --oneline -1
 
-    if [ $DISPLAY = "full" ]
+    if [ $DISPLAY_MODE = "full" ]
     then
         REV_PARSE=`git rev-parse HEAD`
         
+        DISPLAY gray begin
+
         info "Last commit (${REV_PARSE:0:7})"
         git cat-file -p $REV_PARSE
 
         info "Tree commit (${REV_PARSE:0:7})"
         git ls-tree $REV_PARSE
+
+        DISPLAY gray end
     fi
 }
 

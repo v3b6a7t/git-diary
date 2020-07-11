@@ -13,9 +13,9 @@ then
 
     if [ `git ls-files -m $1 | wc -l` -gt 0 ]
     then
-        echo -e $DISPLAY_WARNING_BEGIN
+        DISPLAY warning begin
         git ls-files -m -d -o -v $1
-        echo -e $DISPLAY_WARNING_END
+        DISPLAY warning end
     fi
 
 else 
@@ -23,6 +23,6 @@ else
 
 fi
 
-echo -e $DISPLAY_GRAY_BEGIN
+DISPLAY gray begin
 git log --oneline $2 | grep "\[${1^^}:[0-9]*\]"
-echo -e $DISPLAY_GRAY_END
+DISPLAY gray end
