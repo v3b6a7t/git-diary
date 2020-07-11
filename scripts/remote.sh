@@ -10,9 +10,10 @@
 
 DIR=`dirname $0`
 
-for REMOTE_BRANCH in `git branch -r`
-do
+for REMOTE_BRANCH in `git branch -r`; do
+    
     $DIR/show.sh $1 $REMOTE_BRANCH
+
 done
 
 # A także obsługa poleceń 'pull' i 'push' 

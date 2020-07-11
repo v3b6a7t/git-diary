@@ -2,14 +2,12 @@
 
 source "`dirname $0`/utils/display.sh"
 
-if [ "_$1_" = "__" ] 
-then
+if [ "_$1_" = "__" ]; then
     DISPLAY_warning "Error: Required parameter!"
     echo; exit 1
 fi
 
-for ARG in $*
-do
+for ARG in $*; do
     if [ $ARG = "--full" ]
     then DISPLAY_MODE=full; break;
     else DISPLAY_MODE=short
@@ -26,15 +24,15 @@ done
 # $1 -- start param to run git process
 
 main() {
-    if [ $1 = "all" ] || [ $1 = "other" ]
-    then
+
+    if [ $1 = "all" ] || [ $1 = "other" ]; then
         process '.' $1
-
-    elif [ `ls -dl */ | grep "\s$1/$" -c` -gt 0 ]
-    then
+    
+    elif [ `ls -dl */ | grep "\s$1/$" -c` -gt 0 ]; then
         process $1 $1
-
+    
     fi
+
 }
 
 
@@ -43,21 +41,25 @@ main() {
 # $2 -- param to 'git_commit'
 
 process() {
-    if [ `git ls-files -m -d -o $1 | wc -l` -gt 0 ]
-    then 
+
+    if [ `git ls-files -m -d -o $1 | wc -l` -gt 0 ]; then 
         git_add $1
         git_commit $2
     fi
+
 }
+
 
 # INFO
 # $1 -- param to display info
 
 info() {
+
     if [ $DISPLAY_MODE = "full" ]
-    then DISPLAY_info $1; echo
-    else echo
+        then DISPLAY_info $1; echo
+        else echo
     fi
+
 }
 
 
@@ -70,19 +72,18 @@ info() {
 
 git_add() {
 
-    if [ $1 = '.' ]
-    then 
+    if [ $1 = '.' ]; then 
         git add .
     else
         git reset -q HEAD `git ls-files *[^$1]`
         git add `git ls-files -m -d -o $1/`
     fi
 
-    if [ $DISPLAY_MODE = "full" ]
-    then
+    if [ $DISPLAY_MODE = "full" ]; then
         info "Status after staged"
         git status
     fi
+
 }
 
 
@@ -96,8 +97,9 @@ git_commit() {
     info "Commited '$1'"
     git log --oneline -1
 
-    if [ $DISPLAY_MODE = "full" ]
-    then
+
+    if [ $DISPLAY_MODE = "full" ]; then
+        
         REV_PARSE=`git rev-parse HEAD`
         
         DISPLAY gray begin
@@ -109,7 +111,9 @@ git_commit() {
         git ls-tree $REV_PARSE
 
         DISPLAY gray end
+    
     fi
+
 }
 
 
