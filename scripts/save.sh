@@ -4,7 +4,7 @@ source "`dirname $0`/utils/display.sh"
 
 if [ "_$1_" = "__" ] 
 then
-    display_warning "Error: Required parameter!"
+    DISPLAY_warning "Error: Required parameter!"
     echo; exit 1
 fi
 
@@ -55,7 +55,7 @@ process() {
 
 info() {
     if [ $DISPLAY_MODE = "full" ]
-    then display_info $1; echo
+    then DISPLAY_info $1; echo
     else echo
     fi
 }

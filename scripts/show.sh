@@ -9,7 +9,7 @@ source "`dirname $0`/utils/display.sh"
 
 if [ "_$2_" = "__" ]
 then 
-    display_info "Branch: '`git rev-parse --abbrev-ref HEAD`', param: '$1'"
+    DISPLAY_info "Branch: '`git rev-parse --abbrev-ref HEAD`', param: '$1'"
 
     if [ `git ls-files -m $1 | wc -l` -gt 0 ]
     then
@@ -19,7 +19,7 @@ then
     fi
 
 else 
-    display_info "Remote: '$2', param: '$1'"
+    DISPLAY_info "Remote: '$2', param: '$1'"
 
 fi
 

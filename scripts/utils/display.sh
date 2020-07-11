@@ -20,16 +20,16 @@ DISPLAY() {
 }
 
 
-display_info() {
+DISPLAY_info() {
     echo; echo -e "$DISPLAY_INFO_BEGIN $@ $DISPLAY_INFO_END"
 }
 
 
-display_warning() {
+DISPLAY_warning() {
     echo; echo -e "$DISPLAY_WARNING_BEGIN $@ $DISPLAY_WARNING_END"
 }
 
 
-display_gray() {
+DISPLAY_gray() {
     echo; echo -e "$DISPLAY_GRAY_BEGIN $@ $DISPLAY_GRAY_END"
 }
