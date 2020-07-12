@@ -7,4 +7,4 @@ Jest ona czymś podobnym do życia uwięzionego na starych kliszach, zdjęciach 
 
 ---
 
-[Zapiski](./techniczne/zapiski.md)
+[Zapiski](./techniczne/zapiski.md) | [Próby](./techniczne/proby.md)
