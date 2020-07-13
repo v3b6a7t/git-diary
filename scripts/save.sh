@@ -97,18 +97,19 @@ git_commit() {
     git commit -m "[${1^^}:`git log --oneline  | grep "\[${1^^}:[0-9]*\]" -c`] `date +'%Y-%m-%d %H:%M:%S.%3N'`"
 
     save_info "Commited '$1'"
-    git log --oneline -1
+    
+    if [ $DISPLAY_MODE != "full" ]; then
 
+        git log --oneline -1
 
-    if [ $DISPLAY_MODE = "full" ]; then
+    else
         
+        git log -1
+
         REV_PARSE=`git rev-parse HEAD`
         
         display gray begin
     
-            save_info "Last commit (${REV_PARSE:0:7})"
-            git cat-file -p $REV_PARSE
-
             save_info "Tree commit (${REV_PARSE:0:7})"
             git ls-tree $REV_PARSE
     
