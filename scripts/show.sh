@@ -8,6 +8,8 @@
 source "`dirname $0`/utils/display.sh"
 
 
+GIT_LS_FILES="git ls-files -m -d -o -v --exclude-from=.gitignore $1"
+
 GREP_MAX_COUNT="-m 5"
 
 
@@ -16,11 +18,11 @@ if [ "_$2_" = "__" ]; then
     display_info "Branch: '`git rev-parse --abbrev-ref HEAD`', param: '$1'"
 
 
-    if [ `git ls-files -m -d -o $1 | wc -l` -gt 0 ]; then        
+    if [ `$GIT_LS_FILES $1 | wc -l` -gt 0 ]; then        
 
         display warning begin
         
-        git ls-files -m -d -o -v $1
+        $GIT_LS_FILES
         
         display warning end
     
