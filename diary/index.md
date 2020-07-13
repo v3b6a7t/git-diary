@@ -5,6 +5,7 @@ Historia oparta na systemie kontroli wersji [git](https://git-scm.com/docs/git) 
 Jest ona czymś podobnym do życia uwięzionego na starych kliszach, zdjęciach i płytach.
 
 
+
 ---
 
-[Zapiski](./techniczne/zapiski.md) | [Próby](./techniczne/proby.md) | [Zmiany](./techniczne/zmiany.md)
+[Próby](./techniczne/proby.md) > [Zmiany](./techniczne/zmiany.md) > [Zapiski](./techniczne/zapiski.md)
