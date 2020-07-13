@@ -4,9 +4,22 @@ DIR=`dirname $0`
 
 source "$DIR/utils/display.sh"
 
+DIR_DIARY="./diary"
+PATH_DIARY="$DIR_DIARY/index.md"
+
 DIR_INSTALL="$DIR/install"
 DIR_CONFIG="$DIR/config"
 PATH_CONFIG="$DIR_CONFIG/config.conf"
+
+
+if [ ! -d $DIR_DIARY ]; then
+
+    mkdir $DIR_DIARY
+    
+    echo "# GitDiary writing has begun" > $PATH_DIARY
+    echo `date` >> $PATH_DIARY
+
+fi
 
 
 if [ ! -d "$DIR_CONFIG" ]; then
