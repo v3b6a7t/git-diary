@@ -4,9 +4,9 @@
 # Do zrobienia 
 # -------------------------
 
-# dzoałania na wszystkich odległych repozytoriach 
-# według wskazanego działania
-# na przykład:
+# Działania na wszystkich odległych repozytoriach 
+# według wskazanego polecenia (w tym wypadku jest ro "show")
+# na przykład: 
 
 DIR=`dirname $0`
 
