@@ -12,11 +12,12 @@ DIR_CONFIG="$DIR/config"
 PATH_CONFIG="$DIR_CONFIG/config.conf"
 
 
-if [ ! -d $DIR_DIARY ]; then
+if [ ! -d "$DIR_DIARY" ]; then
 
-    mkdir $DIR_DIARY
+    mkdir "$DIR_DIARY"
     
     echo "# GitDiary writing has begun" > $PATH_DIARY
+    echo >> $PATH_DIARY
     echo `date` >> $PATH_DIARY
 
 fi
