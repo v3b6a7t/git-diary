@@ -2,8 +2,9 @@
 
 source "`dirname $0`/utils/display.sh"
 
+
 if [ "_$1_" = "__" ]; then
-    DISPLAY_warning "Error: Required parameter!"
+    display_warning "Error: Required parameter!"
     echo; exit 1
 fi
 
@@ -53,14 +54,15 @@ process() {
 # INFO
 # $1 -- param to display info
 
-info() {
+save_info() {
 
     if [ $DISPLAY_MODE = "full" ]
-        then DISPLAY_info $1; echo
+        then display_info $1; echo
         else echo
     fi
 
 }
+
 
 
 # ================================
@@ -80,7 +82,7 @@ git_add() {
     fi
 
     if [ $DISPLAY_MODE = "full" ]; then
-        info "Status after staged"
+        save_info "Status after staged"
         git status
     fi
 
@@ -91,10 +93,10 @@ git_add() {
 
 git_commit() {
     
-    info "Commit '$1'"
+    save_info "Commit '$1'"
     git commit -m "[${1^^}:`git log --oneline  | grep "\[${1^^}:[0-9]*\]" -c`] `date +'%Y-%m-%d %H:%M:%S.%3N'`"
 
-    info "Commited '$1'"
+    save_info "Commited '$1'"
     git log --oneline -1
 
 
@@ -102,19 +104,20 @@ git_commit() {
         
         REV_PARSE=`git rev-parse HEAD`
         
-        DISPLAY gray begin
+        display gray begin
+    
+            save_info "Last commit (${REV_PARSE:0:7})"
+            git cat-file -p $REV_PARSE
 
-        info "Last commit (${REV_PARSE:0:7})"
-        git cat-file -p $REV_PARSE
-
-        info "Tree commit (${REV_PARSE:0:7})"
-        git ls-tree $REV_PARSE
-
-        DISPLAY gray end
+            save_info "Tree commit (${REV_PARSE:0:7})"
+            git ls-tree $REV_PARSE
+    
+        display gray end
     
     fi
 
 }
+
 
 
 # ================================

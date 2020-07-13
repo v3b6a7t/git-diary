@@ -7,27 +7,35 @@
 
 source "`dirname $0`/utils/display.sh"
 
+
+GREP_MAX_COUNT="-m 5"
+
+
 if [ "_$2_" = "__" ]; then     
 
-    DISPLAY_info "Branch: '`git rev-parse --abbrev-ref HEAD`', param: '$1'"
+    display_info "Branch: '`git rev-parse --abbrev-ref HEAD`', param: '$1'"
+
 
     if [ `git ls-files -m $1 | wc -l` -gt 0 ]; then        
 
-        DISPLAY warning begin
+        display warning begin
+        
         git ls-files -m -d -o -v $1
-        DISPLAY warning end
+        
+        display warning end
     
     fi
 
 else 
 
-    DISPLAY_info "Remote: '$2', param: '$1'"
+    display_info "Remote: '$2', param: '$1'"
 
 fi
 
 
-DISPLAY gray begin
 
-git log --oneline $2 | grep "\[${1^^}:[0-9]*\]"
+display gray begin
 
-DISPLAY gray end
+git log --oneline $2 | grep $GREP_MAX_COUNT "\[${1^^}:[0-9]*\]"
+
+display gray end
