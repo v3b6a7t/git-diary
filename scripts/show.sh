@@ -16,7 +16,7 @@ if [ "_$2_" = "__" ]; then
     display_info "Branch: '`git rev-parse --abbrev-ref HEAD`', param: '$1'"
 
 
-    if [ `git ls-files -m $1 | wc -l` -gt 0 ]; then        
+    if [ `git ls-files -m -d -o $1 | wc -l` -gt 0 ]; then        
 
         display warning begin
         
