@@ -42,10 +42,12 @@ if [ ! -f "$PATH_CONFIG" ]; then
     fi
     
     echo "# CONFIGURATION (`date +'%d-%m-%Y %H:%M:%S'`)" > $PATH_CONFIG
+    
     echo >> $PATH_CONFIG
     echo "GIT_VERSION=${GIT_VERSION:-'NOT_INSTALLED'}" >> $PATH_CONFIG
     echo "GIT_USERNAME=${GIT_USERNAME:-'$USER'}" >> $PATH_CONFIG
     echo "GIT_EMAIL=${GIT_EMAIL:-'$USER@$HOSTNAME'}" >> $PATH_CONFIG
+    
     echo >> $PATH_CONFIG
     echo "SSH_USERNAME=${GIT_USERNAME:-'$USER'}" >> $PATH_CONFIG
     echo "SSH_EMAIL=${GIT_EMAIL:-'$USER@$HOSTNAME'}" >> $PATH_CONFIG
