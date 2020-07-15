@@ -8,4 +8,4 @@ Jest ona czymś podobnym do życia uwięzionego na starych kliszach, zdjęciach 
 
 ---
 
-[Próby](./techniczne/proby.md) > [Zmiany](./techniczne/zmiany.md) > [Zapiski](./techniczne/zapiski.md)
+[Zmiany](./techniczne/zmiany.md) > [Zapiski](./techniczne/zapiski.md) > [Próby](./techniczne/proby.md)
