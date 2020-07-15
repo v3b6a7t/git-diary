@@ -13,9 +13,9 @@ DISPLAY_GRAY_END="\e[22m"
 # DISPLAY FUNCTION
 
 display() {
-    case $1 in
+    case "$1" in
         "info"|"warning"|"gray")
-            case $2 in
+            case "$2" in
                 "begin"|"end")
                     DISPLAY_VAR="DISPLAY_${1^^}_${2^^}"
                     echo -e ${!DISPLAY_VAR};;
