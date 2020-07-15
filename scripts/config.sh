@@ -32,13 +32,23 @@ fi
 
 if [ ! -f "$PATH_CONFIG" ]; then
     
-    USERNAME="`git config --get user.name`"
-    EMAIL="`git config --get user.email`"
+    GIT_VERSION="`git --version 2>/dev/null | grep -oP '[\d\.]+'`"
+    
+    if [ "_$GIT_VERSION_" != "__" ]; then
+
+        GIT_USERNAME="`git config --get user.name`"
+        GIT_EMAIL="`git config --get user.email`"
+    
+    fi
     
     echo "# CONFIGURATION (`date +'%d-%m-%Y %H:%M:%S'`)" > $PATH_CONFIG
     echo >> $PATH_CONFIG
-    echo "USERNAME=${USERNAME:-'$USER'}" >> $PATH_CONFIG
-    echo "EMAIL=${EMAIL:-'$USER@$HOSTNAME'}" >> $PATH_CONFIG
+    echo "GIT_VERSION=${GIT_VERSION:-'NOT_INSTALLED'}" >> $PATH_CONFIG
+    echo "GIT_USERNAME=${GIT_USERNAME:-'$USER'}" >> $PATH_CONFIG
+    echo "GIT_EMAIL=${GIT_EMAIL:-'$USER@$HOSTNAME'}" >> $PATH_CONFIG
+    echo >> $PATH_CONFIG
+    echo "SSH_USERNAME=${GIT_USERNAME:-'$USER'}" >> $PATH_CONFIG
+    echo "SSH_EMAIL=${GIT_EMAIL:-'$USER@$HOSTNAME'}" >> $PATH_CONFIG
 
 fi
 
