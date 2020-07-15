@@ -1,6 +1,11 @@
 # GitDiary (pamiętnik oparty na git)
 
+
 GitDiary jest aplikacją umżliwiającą prowadzenie zapisków wykorzystując narzędzia `git` oraz skrypty `bash`. Jest on stworzony w celu ćwiczenia umiejętności zarządzaniem repozytoriami `git`. Filozofia działania aplikacji zawarta jest w pliku [diary/index.md](./diary/index.md).
+
+>GitDiary is an application that allows you to keep a diary using `git` tools and `bash` scripts. It was created to practice the ability to manage git repositories. The application's operating philosophy is contained in the [diary/index.md](./diary/index.md) file.
+
+
 
 
 ### Użycie
