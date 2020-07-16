@@ -27,17 +27,19 @@ if [ ! -d "$DIR_CONFIG" ]; then info_message; fi
 case "$1" in
     
     "$DIR_DIARY" )
-        for ARG in $*; do
-            if [ $ARG = "--force" ]
-            then CLEAN_MODE=force; break;
-            else CLEAN_MODE=soft
-            fi
-        done
 
+        for ARG in $*; do
+            case $ARG in
+                "--force") CLEAN_MODE=${ARG:2}; break;;
+            esac
+        done
+        
         if [ "$CLEAN_MODE" = "force" ]; then     
             if [ -d "$DIR_DIARY" ]; then rm -r "$DIR_DIARY"; fi
         fi;;
     
-    *)  display_warning "This clean option for '$1' is not supported!"; echo;;
+    *)  
+    
+        display_warning "This clean option for '$1' is not supported!"; echo;;
 
 esac

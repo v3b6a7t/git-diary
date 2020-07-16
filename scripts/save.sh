@@ -8,12 +8,12 @@ if [ "_$1_" = "__" ]; then
     echo; exit 1
 fi
 
-for ARG in $*; do
-    if [ $ARG = "--full" ]
-    then DISPLAY_MODE=full; break;
-    else DISPLAY_MODE=short
-    fi
+ for ARG in $*; do
+    case $ARG in
+        "--full") DISPLAY_MODE=${ARG:2}; break;;
+    esac
 done
+
 
 
 # ================================
