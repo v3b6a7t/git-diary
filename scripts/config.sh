@@ -5,20 +5,27 @@ DIR=`dirname $0`
 source "$DIR/utils/display.sh"
 
 DIR_DIARY="./diary"
-PATH_DIARY="$DIR_DIARY/index.md"
-
+DIR_SSH="./.ssh"
 DIR_INSTALL="$DIR/install"
 DIR_CONFIG="$DIR/config"
+
+PATH_DIARY="$DIR_DIARY/index.md"
 PATH_CONFIG="$DIR_CONFIG/config.conf"
 
 
 if [ ! -d "$DIR_DIARY" ]; then
-
-    mkdir "$DIR_DIARY"
     
+    mkdir "$DIR_DIARY"
+
     echo "# GitDiary writing has begun" > $PATH_DIARY
     echo >> $PATH_DIARY
     echo `date` >> $PATH_DIARY
+
+fi
+
+if [ ! -d "$DIR_SSH" ]; then
+
+    mkdir "$DIR_SSH"
 
 fi
 
@@ -51,6 +58,12 @@ if [ ! -f "$PATH_CONFIG" ]; then
     echo >> $PATH_CONFIG
     echo "SSH_USERNAME=${GIT_USERNAME:-'$USER'}" >> $PATH_CONFIG
     echo "SSH_EMAIL=${GIT_EMAIL:-'$USER@$HOSTNAME'}" >> $PATH_CONFIG
+    echo "SSH_FILENAME=${GIT_USERNAME:-'$USER'}-`date +"%Y%m%d%H%M%S"`" >> $PATH_CONFIG
+
+    echo >> $PATH_CONFIG
+    echo "DIR_DIARY='$DIR_DIARY'" >> $PATH_CONFIG
+    echo "DIR_SSH='$DIR_SSH'" >> $PATH_CONFIG
+
 
 fi
 
