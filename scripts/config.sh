@@ -55,6 +55,10 @@ if [ ! -f "$PATH_CONFIG" ]; then
     echo "SSH_EMAIL=${GIT_EMAIL:-'$USER@$HOSTNAME'}" >> $PATH_CONFIG
     echo "SSH_FILENAME=${GIT_USERNAME:-'$USER'}-`date +"%Y%m%d%H%M%S"`" >> $PATH_CONFIG
 
+    echo >> $PATH_CONFIG
+    echo "APP_RUN_WITH_TEST=1" >> $PATH_CONFIG
+
+
 fi
 
 

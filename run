@@ -1,19 +1,21 @@
 #!/bin/bash
 
-SCRIPT_DIR='./scripts';
+source "scripts/utils/enviroment.sh"
+
+require_source "config"
 
 
-"$SCRIPT_DIR/test.sh"
+if [ $APP_RUN_WITH_TEST = 1 ]; then "$DIR_SCRIPTS/test.sh"; fi
 
 
-if [ "_$1_" = "__" ] || [ `ls ./scripts | grep $1.sh -c` = 0 ]
+if [ -z $1 ] || [ `ls ./$DIR_SCRIPTS | grep $1.sh -c` = 0 ]
 then SCRIPT="show.sh"
 else SCRIPT="$1.sh"
 fi
 
-if [ "_$2_" = "__" ] || [ `ls -dl */ | grep "\s$2/$" -c` = 0 ]
-then SCRIPT_PARAM="diary"
+if [ -z $2 ] || [ `ls -dl */ | grep "\s$2/$" -c` = 0 ]
+then SCRIPT_PARAM=$DIR_DIARY
 else SCRIPT_PARAM=$2
 fi
 
-"$SCRIPT_DIR/$SCRIPT" $SCRIPT_PARAM $3 $4 $5
+"$DIR_SCRIPTS/$SCRIPT" $SCRIPT_PARAM $3 $4 $5
