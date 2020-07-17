@@ -1,10 +1,19 @@
 #!/bin/bash
 
-source "`dirname $0`/utils/display.sh"
+DIR=`dirname $0`
+
+source "$DIR/utils/enviroment.sh"
 
 
-if [ "_$1_" = "__" ]; then
-    display_warning "Error: Required parameter!"echo; 
+# REQUIRE SOURCES
+
+require_source "display"
+
+
+# DETERMINATION VALUES OF VARIABLES
+
+if [ -z $1 ]; then
+    display_warning "Required parameter!"; echo
     exit 0
 fi
 
@@ -13,8 +22,9 @@ fi
  DISPLAY_MODE=${DISPLAY_MODE:2}
 
 
+
 # ================================
-# SCRIPT FUNCTIONS DEFININITIONS
+# script FUNCTIONS DEFININITIONS
 # ================================
 
 
@@ -30,6 +40,8 @@ process() {
     if [ `git ls-files -m -d -o $1 | wc -l` -gt 0 ]; then 
         git_add $1
         git_commit $2
+    else
+        display_info "Nothing has been changed in the '$1' directory"
     fi
 }
 
@@ -45,6 +57,7 @@ save_info() {
 # ================================
 # GIT FUNCTIONS DEFINITIONS
 # ================================
+
 
 git_add() {
 
@@ -90,8 +103,6 @@ git_commit() {
 # ================================
 # BODY OF SCRIPT
 # ================================
-
-clear
 
 main $1
 

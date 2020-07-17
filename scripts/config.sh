@@ -2,15 +2,11 @@
 
 DIR=`dirname $0`
 
-source "$DIR/utils/display.sh"
+source "$DIR/utils/enviroment.sh"
 
-DIR_DIARY="./diary"
-DIR_SSH="./.ssh"
-DIR_INSTALL="$DIR/install"
-DIR_CONFIG="$DIR/config"
+require_source "display"
 
-PATH_DIARY="$DIR_DIARY/index.md"
-PATH_CONFIG="$DIR_CONFIG/config.conf"
+prepare_enviroment
 
 
 if [ ! -d "$DIR_DIARY" ]; then
@@ -21,8 +17,11 @@ if [ ! -d "$DIR_DIARY" ]; then
     echo `date` >> $PATH_DIARY
 fi
 
+
 if [ ! -d "$DIR_SSH" ]; then
+
     mkdir "$DIR_SSH"
+
 fi
 
 
@@ -55,11 +54,6 @@ if [ ! -f "$PATH_CONFIG" ]; then
     echo "SSH_USERNAME=${GIT_USERNAME:-'$USER'}" >> $PATH_CONFIG
     echo "SSH_EMAIL=${GIT_EMAIL:-'$USER@$HOSTNAME'}" >> $PATH_CONFIG
     echo "SSH_FILENAME=${GIT_USERNAME:-'$USER'}-`date +"%Y%m%d%H%M%S"`" >> $PATH_CONFIG
-
-    echo >> $PATH_CONFIG
-    echo "DIR_DIARY='$DIR_DIARY'" >> $PATH_CONFIG
-    echo "DIR_SSH='$DIR_SSH'" >> $PATH_CONFIG
-
 
 fi
 

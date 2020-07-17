@@ -1,29 +1,47 @@
 #!/bin/bash
 
 DIR=`dirname $0`
-DIR_DIARY="diary"
-DIR_CONFIG="scripts/config"
 
-source "$DIR/utils/display.sh"
+source "$DIR/utils/enviroment.sh"
 
 
+# REQUIRE SOURCES
 
-# FUNCTIONS DEFINITIONS
+require_source "config"
+require_source "display"
+
+
+# DETERMINATION VALUES OF VARIABLES
+
+if [ -z $1 ]; then
+    display_warning "Required parameter!"; echo
+    exit 0
+fi
+
+
+
+# ==================================
+# SCRIPT FUNCTIONS DEFINITIONS
+# ==================================
 
 
 info_message() {
+
     display info begin
     echo " Cleaning has been done! "
     echo " You can now use the command: "
     echo " './run config' or './run install' " 
     display info end
+
 }
 
 
 clean_data_config() {
+
     if [ -d "$DIR_CONFIG" ]; then rm -r "$DIR_CONFIG"; fi
     if [ ! -d "$DIR_CONFIG" ]; then info_message; fi
 }
+
 
 clean_data_diary() {
     if [ -d "$DIR_DIARY" ]; then 
@@ -33,28 +51,42 @@ clean_data_diary() {
 
 
 clean_data_ssh() {
-    "$DIR/ssh.sh" "diary --delete"
+    "$DIR/ssh.sh" "--delete"
 }
+
 
 clean_data() {    
     
     case "$1" in
     
-        "force")    clean_data_diary
+        "data")     clean_data_diary
                     ;;
 
         "ssh")      clean_data_ssh
                     ;; 
 
-        "config")   clean_data_ssh
+        "hard")     clean_data_ssh
                     clean_data_config
                     ;;
+
+        *)          display warning begin
+                    echo "I do not know what to do!"
+                    echo "Choose the following option:"
+                    echo "--data    To delete the '$DIR_DIARY' directory"
+                    echo "--ssh     To delete the ssh keys"
+                    echo "--hard    To delete ssh keys and configuration"
+                    display warning end
+                    ;;
+
     esac
 
 }
 
 
+# ==================================
 # BODY SCRIPT
+# ==================================
+
 
 case "$1" in
 
@@ -65,4 +97,5 @@ case "$1" in
     
     *)      display_warning "This clean option for '$1' is not supported!"; echo
             ;;
+
 esac
