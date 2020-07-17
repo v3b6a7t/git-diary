@@ -4,9 +4,9 @@ DIR=`dirname $0`
 
 source "$DIR/utils/enviroment.sh"
 
-require_source "display"
-
 prepare_enviroment
+
+require_source "display"
 
 
 if [ ! -d "$DIR_DIARY" ]; then

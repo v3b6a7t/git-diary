@@ -15,7 +15,7 @@ require_source "display"
 
 if [ -z $1 ]; then
     display_warning "Required parameter!"; echo
-    exit 0
+    exit 1
 fi
 
 

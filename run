@@ -5,7 +5,13 @@ source "scripts/utils/enviroment.sh"
 require_source "config"
 
 
-if [ $APP_RUN_WITH_TEST = 1 ]; then "$DIR_SCRIPTS/test.sh"; fi
+if [ $APP_RUN_WITH_TEST = 1 ]; then 
+
+    "$DIR_SCRIPTS/test.sh"; 
+
+    if [ "$1" = "test" ]; then exit 0; fi
+
+fi
 
 
 if [ -z $1 ] || [ `ls ./$DIR_SCRIPTS | grep $1.sh -c` = 0 ]

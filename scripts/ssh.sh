@@ -29,7 +29,7 @@ if [ ! -z $DIR_SSH ] && [ ! -z $SSH_EMAIL ] && [ ! -z $SSH_FILENAME ]; then
 
     if [ "$SSH_MODE" = "clip" ]; then
         vim "$KEY_FILENAME.pub"
-        exit 1
+        exit 0
     fi
 
     # THE SSH_MODE VARIABLE HAS A VALUE "delete"
@@ -62,7 +62,7 @@ if [ ! -z $DIR_SSH ] && [ ! -z $SSH_EMAIL ] && [ ! -z $SSH_FILENAME ]; then
 
         fi
 
-        exit 1
+        exit 0
 
     fi
 

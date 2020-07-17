@@ -18,6 +18,7 @@ do_require_test() {
 
     # $1 -- Name of the required file
     # $2 -- The name of the variable derived from the file
+    
     TESTED=$2
     require_source $1
     test_result $1 ${!TESTED}
