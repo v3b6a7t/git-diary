@@ -10,6 +10,28 @@ source "$DIR/utils/enviroment.sh"
 require_source "display"
 
 
+# CHECK rev-parse orgin/master
+
+get_current_branch "CURRENT_BRANCH"
+get_master_branch "MASTER_BRANCH"
+
+GIT_REV_LIST=`git rev-list $CURRENT_BRANCH`
+GIT_REV_PARSE=`git rev-parse origin/master`
+
+
+if [ `echo "$GIT_REV_LIST" | grep "$GIT_REV_PARSE" -c` = 0 ]; then 
+    
+    display warning begin
+    echo " This function cannot be used! "
+    echo " Please use 'git pull' first! "
+    display warning end
+    
+    exit 1
+
+fi
+
+
+
 # DETERMINATION VALUES OF VARIABLES
 
 if [ -z $1 ]; then
