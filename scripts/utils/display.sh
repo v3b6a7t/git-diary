@@ -19,7 +19,6 @@ display() {
                 "begin"|"end")
                     DISPLAY_VAR="DISPLAY_${1^^}_${2^^}"
                     echo -e ${!DISPLAY_VAR};;
-                *)  echo;;
             esac;;            
     esac
 }
