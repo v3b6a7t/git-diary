@@ -135,7 +135,7 @@ if [ ! -z $DIR_SSH ] && [ ! -z $SSH_EMAIL ] && [ ! -z $SSH_FILENAME ]; then
 
     case $SSH_MODE in
         
-        "clip")     show_ssh_key $KEY_FILENAME
+        "show")     show_ssh_key $KEY_FILENAME
                     ;;
 
         "delete")   remove_ssh_key $KEY_FILENAME
