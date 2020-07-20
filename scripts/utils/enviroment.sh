@@ -13,6 +13,19 @@ INST_DIRECTORIES="$DIR_CONFIG $DIR_SSH $DIR_DIARY"
 INST_FILES="$PATH_CONFIG $PATH_DIARY"
 
 
+#-------------------------
+# ENVIROMENT FUNCTIONS
+#-------------------------
+
+get_run_mode() {
+    
+    # $1 -- name value to return
+
+    RUN_MODE=`echo "${BASH_ARGV[@]}" | grep -oP "\-{2}\w+"`
+    printf -v $1 ${RUN_MODE:2}
+
+}
+
 
 require_source() {
 
@@ -26,12 +39,13 @@ require_source() {
     else 
 
         echo -e "\e[41mFile '$REQUIRE_PATH' does not exist\e[0m"
-
+        
         exit 2
 
     fi
 
 }
+
 
 require_directory() {
 
@@ -57,6 +71,7 @@ require_directory() {
     fi
 
 }
+# $1 -- name value to return
 
 prepare_enviroment() {
 
@@ -70,7 +85,9 @@ prepare_enviroment() {
 
 
 
-# CONFIG FUNCTIONS
+#-------------------------
+# CONFIGURATION FUNCTIONS
+#-------------------------
 
 get_config_value() {
 
@@ -86,8 +103,9 @@ get_config_value() {
 
 
 
-
+#--------------------
 # GIT FUNCTIONS
+#--------------------
 
 get_current_branch() {
 
@@ -140,7 +158,6 @@ get_master_branch() {
             exit 1
         
         fi
-
 
     fi
 
