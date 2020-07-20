@@ -27,6 +27,30 @@ get_run_mode() {
 }
 
 
+get_run_param() {
+
+    # $1 -- name of the expected parameter nad name value to return parameter value
+    # WARNING! The message must be written as: "message_with_any_content" or "message-with-any-content"
+
+    for (( i=1; i<=${#BASH_ARGV[@]}; i++ )); do
+
+        if [ "${BASH_ARGV[$i]}" = "$1" ]; then
+
+            VAR_NAME=${BASH_ARGV[$i]:2}
+            VAR_NAME="__${VAR_NAME^^}__"
+
+            VAR_VALUE="${BASH_ARGV[$(!((i+1)))]}"
+            VAR_VALUE="${VAR_VALUE//[-_\"\']/ }"
+
+            printf -v $VAR_NAME "$VAR_VALUE"
+
+        fi
+
+    done
+
+}
+
+
 require_source() {
 
     VAR_NAME_IN_CONFIG_FILE="PATH_${1^^}"
