@@ -21,8 +21,17 @@ get_run_mode() {
     
     # $1 -- name value to return
 
-    RUN_MODE=`echo "${BASH_ARGV[@]}" | grep -oP "\-{2}\w+"`
-    printf -v $1 ${RUN_MODE:2}
+    if [ ! -z $1 ]; then
+
+        RUN_MODE=`echo "${BASH_ARGV[@]}" | grep -oP "\-{2}\w+"`
+    
+        if [ ! -z $RUN_MODE ]; then 
+    
+                printf -v $1 ${RUN_MODE:2}; 
+
+        fi
+    
+    fi
 
 }
 
@@ -42,7 +51,12 @@ get_run_param() {
             VAR_VALUE="${BASH_ARGV[$(!((i+1)))]}"
             VAR_VALUE="${VAR_VALUE//[-_\"\']/ }"
 
-            printf -v $VAR_NAME "$VAR_VALUE"
+
+            if [ ! -z $VAR_NAME ] && [ ! -z $VAR_VALUE ]; then
+
+                printf -v $VAR_NAME "$VAR_VALUE"
+            
+            fi
 
         fi
 
