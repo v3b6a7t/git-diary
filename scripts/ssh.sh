@@ -12,72 +12,95 @@ require_source "display"
 require_directory "ssh"
 
 
-# CREATE AND DISPLAY SSH KEY
+#-----------------------------------
+# SCRIPT FUNCTIONS DEFINITIONS
+#-----------------------------------
 
-if [ ! -z $DIR_SSH ] && [ ! -z $SSH_EMAIL ] && [ ! -z $SSH_FILENAME ]; then
+show_ssh_key() {
 
-    KEY_FILENAME="$DIR_SSH/$SSH_FILENAME";
+    # $1 -- path to file ssh key
 
-    
-    # DETERMINING THE VARIABLE VALUE OF SSH_MODE
+    vim "$1.pub"
+    exit 0
 
-    SSH_MODE=`echo $@ | grep -oP "\-{2}\w+"`
-    SSH_MODE=${SSH_MODE:2}
+}
 
-    
-    # THE SSH_MODE VARIABLE HAS A VALUE "clip"
 
-    if [ "$SSH_MODE" = "clip" ]; then
-        vim "$KEY_FILENAME.pub"
-        exit 0
-    fi
+remove_ssh_key_from_agent() {
 
-    # THE SSH_MODE VARIABLE HAS A VALUE "delete"
+    # $1 -- path to file ssh key
 
-    if [ "$SSH_MODE" = "delete" ]; then
-
-        # DO ZROBIENIA
-        # Coś mi tutaj nie wyszło,
-        # Nie jest usuwany klucz z listy
-
-        if [ `ssh-add -l | grep "$KEY_FILENAME" -c` -gt 0 ]; then
-
-            ssh-add -d "$KEY_FILENAME.pub"
-            display_info "The SSH key '$SSH_FILENAME' has been removed from the Autentication Agent"; echo
+    if [ `ssh-add -d "$1.pub" 2>&1 | grep "^Identity removed\:" -c` -gt 0 ]; then
         
-        fi
+        display_info "The SSH key '$SSH_FILENAME' has been removed from the Autentication Agent";
 
+    else
 
-        if [ ! `ssh-add -l | grep "$KEY_FILENAME" -c` -gt 0 ] & [ -f "$KEY_FILENAME" ]; then 
-        
-            rm $KEY_FILENAME*
-            display_info "The SSH key '$SSH_FILENAME' has been removed from the storage"; echo
-        
-        fi 
-
-
-        if [ `ls -lfA $DIR_SSH | wc -l` = 0  ]; then 
-
-            rm -r $DIR_SSH
-
-        fi
-
-        exit 0
+        display_warning "The SSH key '$SSH_FILENAME' could not be removed from the Autentication Agent"; echo
+        exit 2
 
     fi
 
-    # CREATED NEW KEY SSH
+    
 
-    if [ ! -f "$KEY_FILENAME" ]; then
+}
+
+
+remove_ssh_key_from_storage() {
+
+    # $1 -- path to file ssh key
+
+    rm $1*
+                
+    if [ ! -f "$1" ]; then 
+                
+        display_info "The SSH key '$1' has been removed from the storage";
+        if [ `ls -lfA $DIR_SSH | wc -l` = 0  ]; then rm -r $DIR_SSH; fi
+
+    else 
+    
+        display_warning "The SSH key '$SSH_FILENAME' could not be removed from the storage"; echo
+        exit 2
+    
+    fi
+
+}
+
+
+remove_ssh_key() {
+
+    # $1 -- path to file ssh key
+
+    if [ -f "$1" ]; then
+
+        remove_ssh_key_from_agent $1
+        remove_ssh_key_from_storage $1
+        echo 
+
+    else
+
+        display_warning "The SSH key '$SSH_FILENAME' not exists"; echo
+        exit 2
+
+    fi
+
+}
+
+
+create_ssh_key() {
+
+    # $1 -- path to file ssh key
+
+    if [ ! -f "$1" ]; then
 
         display info begin
         echo " An SSH key will be generated "
         echo " please enter a strong password "
         display info end
 
-        ssh-keygen -t rsa -b 4096 -C "$SSH_EMAIL" -f "$KEY_FILENAME"
+        ssh-keygen -t rsa -b 4096 -C "$SSH_EMAIL" -f "$1"
 
-        if [ -f "$KEY_FILENAME" ]; then
+        if [ -f "$1" ]; then
         
             display info begin
             echo " The private key will be added "
@@ -85,7 +108,7 @@ if [ ! -z $DIR_SSH ] && [ ! -z $SSH_EMAIL ] && [ ! -z $SSH_FILENAME ]; then
             echo " Enter your password "
             display info end
 
-            ssh-add "$KEY_FILENAME"
+            ssh-add "$1"
         fi
 
     else
@@ -93,5 +116,33 @@ if [ ! -z $DIR_SSH ] && [ ! -z $SSH_EMAIL ] && [ ! -z $SSH_FILENAME ]; then
         display_info "SSH key '$SSH_FILENAME' already exists"; echo
     
     fi
+
+}
+
+
+#-----------------------------------
+# BODY SCRIPT
+#-----------------------------------
+
+
+# CREATE AND DISPLAY SSH KEY
+
+if [ ! -z $DIR_SSH ] && [ ! -z $SSH_EMAIL ] && [ ! -z $SSH_FILENAME ]; then
+
+    KEY_FILENAME="$DIR_SSH/$SSH_FILENAME";
+
+    get_run_mode "SSH_MODE"
+
+    case $SSH_MODE in
+        
+        "clip")     show_ssh_key $KEY_FILENAME
+                    ;;
+
+        "delete")   remove_ssh_key $KEY_FILENAME
+                    ;;
+
+            *)      create_ssh_key $KEY_FILENAME
+                    ;;
+    esac
 
 fi
