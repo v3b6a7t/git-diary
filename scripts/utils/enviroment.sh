@@ -23,9 +23,9 @@ get_run_mode() {
 
     if [ ! -z $1 ]; then
 
-        RUN_MODE=`echo "${BASH_ARGV[@]}" | grep -oP "\-{2}\w+"`
+        RUN_MODE=`echo "${BASH_ARGV[@]}" | grep -oP "\-{2}[\w\d\-]+"`
     
-        if [ ! -z $RUN_MODE ]; then 
+        if [ ! -z "$RUN_MODE" ]; then 
     
                 printf -v $1 ${RUN_MODE:2}; 
 
@@ -39,28 +39,24 @@ get_run_mode() {
 get_run_param() {
 
     # $1 -- name of the expected parameter nad name value to return parameter value
-    # WARNING! The message must be written as: "message_with_any_content" or "message-with-any-content"
 
-    for (( i=1; i<=${#BASH_ARGV[@]}; i++ )); do
+    unset VAR_VALUE
+
+    for (( i=${#BASH_ARGV[@]}; i>=0; i-- )); do
 
         if [ "${BASH_ARGV[$i]}" = "$1" ]; then
 
-            VAR_NAME=${BASH_ARGV[$i]:2}
-            VAR_NAME="__${VAR_NAME^^}__"
+            VAR_VALUE=${BASH_ARGV[$((i-1))]}
 
-            VAR_VALUE="${BASH_ARGV[$(!((i+1)))]}"
-            VAR_VALUE="${VAR_VALUE//[-_\"\']/ }"
-
-
-            if [ ! -z $VAR_NAME ] && [ ! -z $VAR_VALUE ]; then
-
-                printf -v $VAR_NAME "$VAR_VALUE"
-            
-            fi
+            break;
 
         fi
 
     done
+
+    VAR_NAME="__${1//-/}__"
+
+    printf -v ${VAR_NAME^^} "$VAR_VALUE"
 
 }
 
@@ -68,7 +64,9 @@ get_run_param() {
 require_source() {
 
     VAR_NAME_IN_CONFIG_FILE="PATH_${1^^}"
+
     REQUIRE_PATH=${!VAR_NAME_IN_CONFIG_FILE}
+
 
     if [ -f "$REQUIRE_PATH" ]; then 
     
@@ -88,8 +86,10 @@ require_source() {
 require_directory() {
 
     VAR_NAME_IN_CONFIG_FILE="DIR_${1^^}"
+
     REQUIRE_DIR=${!VAR_NAME_IN_CONFIG_FILE}
 
+    
     if [ ! -d "$REQUIRE_DIR" ]; then 
         
         if [ "$2" != "critically" ]; then 
@@ -109,9 +109,11 @@ require_directory() {
     fi
 
 }
-# $1 -- name value to return
+
 
 prepare_enviroment() {
+
+    # $1 -- name value to return
 
     for DIRECTORY in $INST_DIRECTORIES; do
         
