@@ -16,7 +16,7 @@ test_result     "ALLOW_MODE" "$ALLOW_MODE"
 # TEST PARAMS
 
 get_run_param   "--show"
-test_result     "SHOW"    "$__SHOW__"
+test_result     "SHOW"    "$__SHOW"
 
 get_run_param   "--message" "MESSAGE"
 test_result     "MESSAGE"   "$MESSAGE"

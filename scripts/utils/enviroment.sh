@@ -52,8 +52,14 @@ get_run_param() {
     # $2 -- optional name of the output variable
 
     # Exemple of use:
-    # get_run_param "param-name"  --> name of returned variable $__PARAM_NAME__
-    # get_run_param "param-name"  "NAME_OF_RETURNED_VARIABLE"
+    # get_run_param "--mode"        --> name of returned variable $__MODE
+    # get_run_param "--run-test"    --> name of returned variable $__RUN_TEST
+    # get_run_param "-p"            --> name of returned variable $_P
+    
+    # You can use that too:
+    # get_run_param "--mode" "MODE" --> name of returned variable $MODE
+    # get_run_param "-p" "PARAM"    --> name of returned variable $PARAM
+    
 
     if [ -z "$1" ]; then break; fi
 
@@ -74,7 +80,7 @@ get_run_param() {
 
     if [ -z $2 ]; then 
     
-        VAR_NAME="__${1//-/}__"
+        VAR_NAME="${1//-/_}"
 
         printf -v ${VAR_NAME^^} "$VAR_VALUE"
 

@@ -136,12 +136,14 @@ git_commit() {
 
     # $1 -- the type of files to commit
     
-    get_run_param "--message"
+    get_run_param "--message" 
 
-    COMMIT_MESSAGE=${__MESSAGE__:-`date +'%Y-%m-%d %H:%M:%S.%3N'`}
+    COMMIT_MESSAGE=${__MESSAGE:-`date +'%Y-%m-%d %H:%M:%S.%3N'`}
 
     save_info "Commit '$1'"
+
     git commit -m "[${1^^}:`git log --oneline  | grep "\[${1^^}:[0-9]*\]" -c`] $COMMIT_MESSAGE"
+    
     save_info "Commited '$1'"
     
 
