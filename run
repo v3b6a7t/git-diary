@@ -2,12 +2,23 @@
 
 source "scripts/utils/enviroment.sh"
 
+
+if [ ! -f "$PATH_CONFIG" ]; then
+
+    "$DIR_SCRIPTS/config.sh"
+
+    exit 2
+
+fi
+
+
 require_source "config"
 
 
-if [ $APP_RUN_WITH_TEST = 1 ]; then 
 
-    "$DIR_SCRIPTS/test.sh"; 
+if [ "$APP_RUN_WITH_TEST" = "1" ]; then 
+
+    "$DIR_SCRIPTS/test.sh" --show 'Automatic testing' --message 'All is well!' --run-test; 
 
     if [ "$1" = "test" ]; then exit 0; fi
 

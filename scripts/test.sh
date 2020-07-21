@@ -2,16 +2,12 @@
 
 echo
 
-DIR_TESTS='tests'
+DIR_TESTS='./tests'
 
-for TEST_FILE in `ls $DIR_TESTS`; do
+for TEST_FILE in `find $DIR_TESTS -maxdepth 1 -perm -111 -type f`; do
 
-    PATH_FILE="$DIR_TESTS/$TEST_FILE"
-
-    if [ -x "$PATH_FILE" ]; then
-        echo "Running the '${TEST_FILE:0:-3}' test"
-        "./$PATH_FILE"
-        echo
-    fi
+    echo "Running the '`basename ${TEST_FILE:0:-3}`' test"
+    "$TEST_FILE" "$@"
+    echo
     
 done

@@ -19,17 +19,27 @@ INST_FILES="$PATH_CONFIG $PATH_DIARY"
 
 get_run_mode() {
     
-    # $1 -- name value to return
-
-    if [ ! -z $1 ]; then
-
-        RUN_MODE=`echo "${BASH_ARGV[@]}" | grep -oP "\-{2}[\w\d\-]+"`
+    # $1 -- name value to return OR list of allowed parameters
+    # $2 -- optional name of the output variable IF the $1 variable contains parameters
     
-        if [ ! -z "$RUN_MODE" ]; then 
-    
-                printf -v $1 ${RUN_MODE:2}; 
+    # Exemples of use:
+    # get_run_mode "NAME_OF_RETURNED_VARIABLE"
+    # get_run_mode "delete|mode|action" "NAME_OF_RETURNED_VARIABLE"
 
-        fi
+    if [ -z "$1" ]; then break; fi
+
+
+    if [ -z $2 ]; then
+
+        RUN_MODE=`echo "${BASH_ARGV[@]}" | grep -oP "\-{2}[\w\d\-\_]+"`
+    
+        if [ ! -z "$RUN_MODE" ]; then printf -v $1 ${RUN_MODE:2}; fi
+
+    else 
+
+        RUN_MODE=`echo "${BASH_ARGV[@]}" | grep -oP "\-{2}($1)"`
+
+        if [ ! -z "$RUN_MODE" ]; then printf -v $2 ${RUN_MODE:2}; fi
     
     fi
 
@@ -38,7 +48,15 @@ get_run_mode() {
 
 get_run_param() {
 
-    # $1 -- name of the expected parameter nad name value to return parameter value
+    # $1 -- name of the expected parameter AND name value to return parameter value
+    # $2 -- optional name of the output variable
+
+    # Exemple of use:
+    # get_run_param "param-name"  --> name of returned variable $__PARAM_NAME__
+    # get_run_param "param-name"  "NAME_OF_RETURNED_VARIABLE"
+
+    if [ -z "$1" ]; then break; fi
+
 
     unset VAR_VALUE
 
@@ -54,14 +72,25 @@ get_run_param() {
 
     done
 
-    VAR_NAME="__${1//-/}__"
+    if [ -z $2 ]; then 
+    
+        VAR_NAME="__${1//-/}__"
 
-    printf -v ${VAR_NAME^^} "$VAR_VALUE"
+        printf -v ${VAR_NAME^^} "$VAR_VALUE"
+
+    else
+
+        printf -v $2 "$VAR_VALUE"
+
+    fi
 
 }
 
 
 require_source() {
+
+    if [ -z "$1" ]; then break; fi
+
 
     VAR_NAME_IN_CONFIG_FILE="PATH_${1^^}"
 
@@ -85,6 +114,9 @@ require_source() {
 
 require_directory() {
 
+    if [ -z "$1" ]; then break; fi
+
+    
     VAR_NAME_IN_CONFIG_FILE="DIR_${1^^}"
 
     REQUIRE_DIR=${!VAR_NAME_IN_CONFIG_FILE}
@@ -131,7 +163,7 @@ prepare_enviroment() {
 
 get_config_value() {
 
-        # $1-$9 -- name value in config file, and name value to return
+        # $1-$9 -- name value in config file AND name value to return
 
         for VAR_NAME_IN_CONFIG in $*; do
 
