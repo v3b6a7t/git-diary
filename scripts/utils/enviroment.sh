@@ -70,7 +70,7 @@ get_run_param() {
 
         if [ "${BASH_ARGV[$i]}" = "$1" ]; then
 
-            VAR_VALUE="${BASH_ARGV[$((i-1))]}"
+            VAR_VALUE="${BASH_ARGV[$((i-1))]//_/ }"
 
             break;
 

@@ -42,7 +42,7 @@ fi
 for (( i=((${#BASH_ARGV[@]}-2)); i>=0; i-- )); do
 
     if [[ "${BASH_ARGV[$i]}" =~ " " ]]
-    then SECURE_PARAMS="$SECURE_PARAMS \"${BASH_ARGV[$i]}\""
+    then SECURE_PARAMS="$SECURE_PARAMS ${BASH_ARGV[$i]// /_}"
     else SECURE_PARAMS="$SECURE_PARAMS ${BASH_ARGV[$i]}"
     fi
 
