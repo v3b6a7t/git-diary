@@ -4,6 +4,7 @@ DIR=`dirname $0`
 
 source "scripts/utils/enviroment.sh"
 
+
 test_result() {
 
     if [ ! -z "$2" ]
@@ -19,8 +20,8 @@ do_require_test() {
     # $1 -- Name of the required file
     # $2 -- The name of the variable derived from the file
     
-    TESTED=$2
-    require_source $1
+    TESTED="$2"
+    require_source "$1"
     test_result $1 ${!TESTED}
 
 }
@@ -30,15 +31,15 @@ do_existence_test() {
 
     # $1 -- Name of the file
 
-    DIRNAME=`dirname $1`
+    DIRNAME=`dirname "$1"`
 
-    if [ ! -d $DIRNAME ]
-    then test_result $DIRNAME ""   # Dirname don't exists
+    if [ ! -d "$DIRNAME" ]
+    then test_result "$DIRNAME" ""   # Dirname don't exists
     fi
 
     if [ `ls -l $1* 2>/dev/null | wc -l` -gt 0 ]
-    then test_result $1 "EXISTS"    # File exists
-    else test_result $1 ""          # File don't exists
+    then test_result "$1" "EXISTS"    # File exists
+    else test_result "$1" ""          # File don't exists
     fi
 
 }

@@ -78,7 +78,7 @@ get_run_param() {
 
     done
 
-    if [ -z $2 ]; then 
+    if [ -z "$2" ]; then 
     
         VAR_NAME="${1//-/_}"
         

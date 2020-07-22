@@ -8,7 +8,7 @@
 # według wskazanego polecenia (w tym wypadku jest ro "show")
 # na przykład: 
 
-DIR=`dirname $0`
+DIR=`dirname "$0"`
 
 for REMOTE_BRANCH in `git branch -r`; do
     

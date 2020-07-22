@@ -12,9 +12,14 @@ require_source "display"
 
 # DETERMINATION VALUES OF VARIABLES
 
-if [ -z $1 ]; then
+
+if [ -z "$1" ]; then
+
+
     display_warning "Required parameter!"; echo
+
     exit 1
+
 fi
 
 

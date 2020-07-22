@@ -127,21 +127,21 @@ create_ssh_key() {
 
 # CREATE AND DISPLAY SSH KEY
 
-if [ ! -z $DIR_SSH ] && [ ! -z $SSH_EMAIL ] && [ ! -z $SSH_FILENAME ]; then
+if [ ! -z "$DIR_SSH" ] && [ ! -z "$SSH_EMAIL" ] && [ ! -z "$SSH_FILENAME" ]; then
 
     KEY_FILENAME="$DIR_SSH/$SSH_FILENAME";
 
     get_run_mode "SSH_MODE"
 
-    case $SSH_MODE in
+    case "$SSH_MODE" in
         
-        "show")     show_ssh_key $KEY_FILENAME
+        "show")     show_ssh_key "$KEY_FILENAME"
                     ;;
 
-        "delete")   remove_ssh_key $KEY_FILENAME
+        "delete")   remove_ssh_key "$KEY_FILENAME"
                     ;;
 
-            *)      create_ssh_key $KEY_FILENAME
+            *)      create_ssh_key "$KEY_FILENAME"
                     ;;
     esac
 

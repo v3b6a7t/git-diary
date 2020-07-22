@@ -32,7 +32,7 @@ create_config() {
         "newline")  CREATE_CONFIG+="\n"
                     ;;
 
-        "save")     echo -e $CREATE_CONFIG > $PATH_CONFIG
+        "save")     echo -e "$CREATE_CONFIG" > $PATH_CONFIG
                     ;;
 
     esac
@@ -61,7 +61,7 @@ create_config_file() {
         
         GIT_VERSION="`git --version 2>/dev/null | grep -oP '[\d\.]+'`"
         
-        if [ "_$GIT_VERSION_" != "__" ]; then
+        if [ ! -z "$GIT_VERSION" ]; then
 
             GIT_USERNAME="`git config --get user.name`"
             GIT_EMAIL="`git config --get user.email`"

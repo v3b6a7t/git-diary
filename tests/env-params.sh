@@ -17,7 +17,7 @@ get_run_param   "--show"
 get_run_param   "--show" "SHOW"
 
 
-if [ -z "$__SHOW" ] || [ -z "$SHOW" ] || [ -z $ANY_MODE ] || [ -z $ALLOW_MODE ]; then
+if [ -z "$__SHOW" ] || [ -z "$SHOW" ] || [ -z "$ANY_MODE" ] || [ -z "$ALLOW_MODE" ]; then
 
     ./$0 --show "Ala ma kota" --run-test
 

@@ -13,7 +13,7 @@ for DIRECTORY in $INST_DIRECTORIES; do
 done
 
 for FILE in $INST_FILES; do
-    do_existence_test $FILE
+    do_existence_test "$FILE"
 done
 
 

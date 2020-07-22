@@ -19,7 +19,7 @@ require_directory "diary"
 
 # CHECK INSTALL GIT & PREPARE FIRST COMMIT
 
-if [[ $GIT_VERSION =~ [^0-9.]+ ]]; then
+if [[ "$GIT_VERSION" =~ [^0-9.]+ ]]; then
     
     display warning begin
     echo "WARNING!"
