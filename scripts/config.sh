@@ -17,12 +17,15 @@ create_config() {
     # $3 -- variable value
 
 
+    if [ -z "$1" ] || [ -z "$2" ]; then break; fi
+
+
     case "$1" in
 
         "init")     CREATE_CONFIG="# CONFIGURATION (`date +'%d-%m-%Y %H:%M:%S'`)\n\n"
                     ;;
 
-        "add")      CREATE_CONFIG+="$2=$3\n"
+        "add")      CREATE_CONFIG+="$2=$3\n"            
                     echo
                     ;;
 
@@ -73,7 +76,7 @@ create_config_file() {
         create_config newline
         create_config add "GIT_USERNAME"        "${GIT_USERNAME:-'$USER'}"
         create_config add "GIT_EMAIL"           "${GIT_EMAIL:-'$USER@$HOSTNAME'}"
-        create_config add "GIT_MASTER_BRANCH"   ""
+        create_config add "GIT_MASTER_BRANCH"
         
         create_config newline
         create_config add "SSH_USERNAME"        "${GIT_USERNAME:-'$USER'}"
