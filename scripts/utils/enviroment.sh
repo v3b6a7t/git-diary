@@ -70,7 +70,7 @@ get_run_param() {
 
         if [ "${BASH_ARGV[$i]}" = "$1" ]; then
 
-            VAR_VALUE=${BASH_ARGV[$((i-1))]}
+            VAR_VALUE="${BASH_ARGV[$((i-1))]}"
 
             break;
 
@@ -81,7 +81,7 @@ get_run_param() {
     if [ -z $2 ]; then 
     
         VAR_NAME="${1//-/_}"
-
+        
         printf -v ${VAR_NAME^^} "$VAR_VALUE"
 
     else

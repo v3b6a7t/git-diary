@@ -3,20 +3,30 @@
 source "scripts/utils/test-tools.sh"
 source "scripts/utils/enviroment.sh"
 
+unset $ANY_MODE $ALLOW_MODE $SHOW $__SHOW
 
-# TEST MODE
+TEST_PARAM_SHOW="Ala ma kota"
+
+
+# TEST MODE & PARAMS
 
 get_run_mode    "ANY_MODE"
-test_result     "ANY_MODE"  "$ANY_MODE"
-
-get_run_mode    "run-test|show|delete"  "ALLOW_MODE"
-test_result     "ALLOW_MODE" "$ALLOW_MODE"
-
-
-# TEST PARAMS
+get_run_mode    "show|delete|run-test" "ALLOW_MODE"
 
 get_run_param   "--show"
-test_result     "SHOW"    "$__SHOW"
+get_run_param   "--show" "SHOW"
 
-get_run_param   "--message" "MESSAGE"
-test_result     "MESSAGE"   "$MESSAGE"
+
+if [ -z "$__SHOW" ] || [ -z "$SHOW" ] || [ -z $ANY_MODE ] || [ -z $ALLOW_MODE ]; then
+
+    ./$0 --show "Ala ma kota" --run-test
+
+else
+
+    test_result "any-mode"      "$ANY_MODE"
+    test_result "allow-mode"    "$ALLOW_MODE"
+    
+    test_result "--show"        "$__SHOW"
+    test_result "--show SHOW"   "$SHOW"
+
+fi

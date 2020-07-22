@@ -136,7 +136,7 @@ git_commit() {
 
     # $1 -- the type of files to commit
     
-    get_run_param "--message" 
+    get_run_param "--message"
 
     COMMIT_MESSAGE=${__MESSAGE:-`date +'%Y-%m-%d %H:%M:%S.%3N'`}
 

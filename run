@@ -18,7 +18,7 @@ require_source "config"
 
 if [ "$APP_RUN_WITH_TEST" = "1" ]; then 
 
-    "$DIR_SCRIPTS/test.sh" --show 'Automatic testing' --message 'All is well!' --run-test; 
+    "$DIR_SCRIPTS/test.sh"
 
     if [ "$1" = "test" ]; then exit 0; fi
 
@@ -35,4 +35,18 @@ then SCRIPT_PARAM=$DIR_DIARY
 else SCRIPT_PARAM=$2
 fi
 
-"$DIR_SCRIPTS/$SCRIPT" $SCRIPT_PARAM $3 $4 $5
+
+# Secure multi-word parameters
+# Fixed issue #8 (https://github.com/v3b6a7t/git-diary/issues/8#issuecomment-662005174)
+
+for (( i=((${#BASH_ARGV[@]}-2)); i>=0; i-- )); do
+
+    if [[ "${BASH_ARGV[$i]}" =~ " " ]]
+    then SECURE_PARAMS="$SECURE_PARAMS \"${BASH_ARGV[$i]}\""
+    else SECURE_PARAMS="$SECURE_PARAMS ${BASH_ARGV[$i]}"
+    fi
+
+done
+
+
+"$DIR_SCRIPTS/$SCRIPT" $SCRIPT_PARAM $SECURE_PARAMS
