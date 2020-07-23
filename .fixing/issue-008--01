@@ -4,7 +4,7 @@
 # https://github.com/v3b6a7t/git-diary/issues/8#issuecomment-662005174
 
 
-source "scripts/utils/enviroment.sh"
+source "scripts/utils/enviroment"
 
 require_source "display"
 

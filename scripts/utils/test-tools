@@ -2,7 +2,7 @@
 
 DIR=`dirname $0`
 
-source "scripts/utils/enviroment.sh"
+source "scripts/utils/enviroment"
 
 
 test_result() {

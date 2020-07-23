@@ -2,7 +2,7 @@
 
 DIR=`dirname $0`
 
-source "$DIR/utils/enviroment.sh"
+source "$DIR/utils/enviroment"
 
 
 # REQUIRE SOURCES & DIRECTORIES

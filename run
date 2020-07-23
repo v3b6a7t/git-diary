@@ -1,11 +1,11 @@
 #!/bin/bash
 
-source "scripts/utils/enviroment.sh"
+source "scripts/utils/enviroment"
 
 
 if [ ! -f "$PATH_CONFIG" ]; then
 
-    "$DIR_SCRIPTS/config.sh"
+    "$DIR_SCRIPTS/config"
 
     exit 2
 
@@ -18,16 +18,16 @@ require_source "config"
 
 if [ "$APP_RUN_WITH_TEST" = "1" ]; then 
 
-    "$DIR_SCRIPTS/test.sh"
+    "$DIR_SCRIPTS/test"
 
     if [ "$1" = "test" ]; then exit 0; fi
 
 fi
 
 
-if [ -z $1 ] || [ `ls ./$DIR_SCRIPTS | grep $1.sh -c` = 0 ]
-then SCRIPT="show.sh"
-else SCRIPT="$1.sh"
+if [ -z $1 ] || [ `ls ./$DIR_SCRIPTS | grep $1 -c` = 0 ]
+then SCRIPT="show"
+else SCRIPT="$1"
 fi
 
 if [ -z $2 ] || [ `ls -dl */ | grep "\s$2/$" -c` = 0 ]

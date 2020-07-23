@@ -2,7 +2,7 @@
 
 DIR=`dirname $0`
 
-source "$DIR/utils/enviroment.sh"
+source "$DIR/utils/enviroment"
 
 
 # REQUIRE SOURCES
@@ -51,7 +51,7 @@ clean_data_diary() {
 
 
 clean_data_ssh() {
-    "$DIR/ssh.sh" "--delete"
+    "$DIR/ssh" "--delete"
 }
 
 

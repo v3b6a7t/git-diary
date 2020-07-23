@@ -12,7 +12,7 @@ DIR=`dirname "$0"`
 
 for REMOTE_BRANCH in `git branch -r`; do
     
-    $DIR/show.sh $1 $REMOTE_BRANCH
+    $DIR/show $1 $REMOTE_BRANCH
 
 done
 

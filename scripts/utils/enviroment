@@ -6,7 +6,7 @@ DIR_SSH=".ssh"
 DIR_CONFIG=".config"
 
 PATH_CONFIG="$DIR_CONFIG/config.conf"
-PATH_DISPLAY="$DIR_SCRIPTS/utils/display.sh"
+PATH_DISPLAY="$DIR_SCRIPTS/utils/display"
 PATH_DIARY="$DIR_DIARY/index.md"
 
 INST_DIRECTORIES="$DIR_CONFIG $DIR_SSH $DIR_DIARY"
