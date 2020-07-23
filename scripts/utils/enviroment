@@ -212,11 +212,11 @@ get_master_branch() {
 
     else
 
-        REMOTE_BRANCH=`git branch -r`
+        REMOTE_BRANCH=`git branch -r | grep -v "HEAD"`
 
         if [ `echo $REMOTE_BRANCH | wc -w` = 1 ]; then 
 
-            MASTER_BRANCH_NAME=`git branch -vv | grep $( git branch -r ) | cut -f 3 -d " "`
+            MASTER_BRANCH_NAME=`git branch -vv | grep $REMOTE_BRANCH | cut -f 3 -d " "`
         
            printf -v $1 "$MASTER_BRANCH_NAME"
         
