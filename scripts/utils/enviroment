@@ -173,7 +173,7 @@ get_config_value() {
 
         for VAR_NAME_IN_CONFIG in $*; do
 
-            printf -v $VAR_NAME_IN_CONFIG  `cat $PATH_CONFIG | grep -P "^\s*$VAR_NAME_IN_CONFIG" | grep -oP "[^=]+$"`
+            printf -v $VAR_NAME_IN_CONFIG  "`cat $PATH_CONFIG | grep -P "^\s*$VAR_NAME_IN_CONFIG" | grep -oP "[^=]+$"`"
 
         done
 
@@ -208,29 +208,32 @@ get_master_branch() {
 
     if [ ! -z ${!VAR_NAME_IN_CONFIG_FILE} ] && [ `git branch | grep -oP "\s${!VAR_NAME_IN_CONFIG_FILE}$" -c` -gt 0 ]; then
 
-        printf -v $1 ${!VAR_NAME_IN_CONFIG_FILE} 
+        printf -v $1 "${!VAR_NAME_IN_CONFIG_FILE}"
 
     else
 
-        FIRST_COMMIT=`git reflog | tail -1 | grep -oP "^[0-9a-f]+"`
-        BRANCH_LIST=`git branch --contains $FIRST_COMMIT | grep -oP "[\w\d-_]+"`
+        REMOTE_BRANCH=`git branch -r`
 
-        if [ `echo $BRANCH_LIST | wc -w` = 1 ]; then 
+        if [ `echo $REMOTE_BRANCH | wc -w` = 1 ]; then 
+
+            MASTER_BRANCH_NAME=`git branch -vv | grep $( git branch -r ) | cut -f 3 -d " "`
         
-            printf -v $1 "$BRANCH_LIST"
+           printf -v $1 "$MASTER_BRANCH_NAME"
         
         else 
 
             display warning begin
-            echo "I do not know what to do! "
-            echo "The first commit (#$FIRST_COMMIT) is associated"
-            echo "with several branches:"
-            echo
-            echo "$BRANCH_LIST"
-            echo            
-            echo "Please enter the name of the master branch"
-            echo "in the variable '$VAR_NAME_IN_CONFIG_FILE'"
-            echo "in the configuration '$PATH_CONFIG'"
+            echo "
+            I do not know what to do!
+            The first commit (#$FIRST_COMMIT) is associated
+            with several branches:
+
+            $BRANCH_LIST
+
+            Please enter the name of the master branch
+            in the variable '$VAR_NAME_IN_CONFIG_FILE'
+            in the configuration '$PATH_CONFIG'
+            "
             display warning end
 
             exit 1

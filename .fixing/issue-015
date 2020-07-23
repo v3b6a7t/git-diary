@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# FIXING ISSUE #15 
+# https://github.com/v3b6a7t/git-diary/issues/15#issue-664589745
+
+
+source "scripts/utils/enviroment"
+
+require_source "display"
+
+get_master_branch "MASTER_BRANCH" 
+
+display_info "The master branch was name: \"$MASTER_BRANCH\""; echo
