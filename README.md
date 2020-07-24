@@ -8,42 +8,87 @@
 
 
 
-### Użycie
+## Instalacja i konfiguracja
 
-#### Konnfiguracja i instalacja
 
-Konfiguracja:
-```
-./run config
-```
+Instalacja aplikacji
 
-Instalacja:
 ```
 ./run install
 ```
 
-#### Wyświetlanie i tworzenie zatwierszeń 
+Zmiana konfiguracji
 
-Wyświetlenie zatwierdzeń `commits`:
+```
+./run config
+```
+
+* Aby wyłączyć testowanie, ustaw zmienną `APP_RUN_WITH_TEST` na 0.
+* Aby określić główną gałąź `git`, wpisz jej nazwę do zmiennej `GIT_MASTER_BRANCH`.
+
+## Zarządzanie kluczami ssh
+
+Wygenerowanie i rejestracja klucza
+
+```
+./run ssh
+```
+
+Wyświetlenie klucza publicznego
+
+```
+./run ssh --show
+
+```
+
+
+## Zapisywanie zmian
+
+Zapisanie z domyślnymi ustawieniami
+
+```
+./run save
+```
+
+Zapisanie z dodatkowymi opcjami
+
+```
+./run save diary --message "Informacja, która będzie zawarta w zatwierdzeniu"
+```
+
+
+## Wyświetlanie zatwierdzeń
+
+Wyświetlanie z domyślnymi ustawieniami
+
+```
+./run show
+```
+
+Wyświetlanie z doatkowymi opcjami
+
 ```
 ./run show diary
 ./run show scripts
 ```
 
-Stworzenie nowego zatwierdzenia:
-```
-./run save diary
-./run save scripts
-```
-
 #### Konserwacja i oczyszczanie aplikacji
 
-Usuwanie plików konfiguracyjnych:
+Usuwanie plików dziennika `diary`:
+
 ```
-./run clean
+./run clean diary --data
 ```
 
-Usuwanie plików dziennika `diary`:
+Usuwanie i wyrejestrowanie kluczy ssh
+
 ```
-./run clean diary --force
+./run clean --ssh
 ```
+
+Usuwanie kluczy ssh oraz plików konfiguracyjnych
+
+```
+./run clean --hard
+```
+
