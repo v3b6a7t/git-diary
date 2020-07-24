@@ -10,7 +10,7 @@ prepare_enviroment
 
 
 
-create_config() {
+function create_config() {
 
     # $1 -- opton
     # $2 -- variable name
@@ -41,7 +41,7 @@ create_config() {
 }
 
 
-create_diary_file() {
+function create_diary_file() {
 
     if [ ! -d "$DIR_DIARY" ]; then
 
@@ -56,7 +56,7 @@ create_diary_file() {
 }
 
 
-create_config_file() {
+function create_config_file() {
 
     if [ ! -f "$PATH_CONFIG" ]; then
         

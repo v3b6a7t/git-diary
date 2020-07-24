@@ -17,7 +17,7 @@ INST_FILES="$PATH_CONFIG $PATH_DIARY"
 # ENVIROMENT FUNCTIONS
 #-------------------------
 
-get_run_mode() {
+function get_run_mode() {
     
     # $1 -- list of allowed parameters
     
@@ -44,7 +44,7 @@ get_run_mode() {
 }
 
 
-get_run_param() {
+function get_run_param() {
 
     # $1 -- name of the expected parameter AND name value to return parameter value
     # $2 -- optional name of the output variable
@@ -80,7 +80,7 @@ get_run_param() {
 }
 
 
-require_source() {
+function require_source() {
 
     if [ -z "$1" ]; then break; fi
 
@@ -105,7 +105,7 @@ require_source() {
 }
 
 
-require_directory() {
+function require_directory() {
 
     if [ -z "$1" ]; then break; fi
 
@@ -136,7 +136,7 @@ require_directory() {
 }
 
 
-prepare_enviroment() {
+function prepare_enviroment() {
 
     # $1 -- name value to return
 
@@ -154,7 +154,7 @@ prepare_enviroment() {
 # CONFIGURATION FUNCTIONS
 #-------------------------
 
-get_config_value() {
+function get_config_value() {
 
         # $1-$9 -- name value in config file AND name value to return
 
@@ -172,7 +172,7 @@ get_config_value() {
 # GIT FUNCTIONS
 #--------------------
 
-get_current_branch() {
+function get_current_branch() {
 
     # $1 -- name value to return
 
@@ -186,7 +186,7 @@ get_current_branch() {
 }
 
 
-get_master_branch() {
+function get_master_branch() {
 
     # $1 -- name value to return
 

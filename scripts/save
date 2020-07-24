@@ -55,7 +55,7 @@ fi
 # ================================
 
 
-main() {
+function main() {
 
     if [ $1 = "all" ] || [ $1 = "other" ]; then
     
@@ -70,7 +70,7 @@ main() {
 }
 
 
-process() {
+function process() {
 
     # $1 -- what is to be added to stag
     # $2 -- the type of files to commit
@@ -90,7 +90,7 @@ process() {
 }
 
 
-save_info() {
+function save_info() {
 
     if [ "$DISPLAY_MODE" = "full" ]
 
@@ -108,7 +108,7 @@ save_info() {
 # ================================
 
 
-git_add() {
+function git_add() {
 
     if [ "$1" = "." ]; then 
     
@@ -132,7 +132,7 @@ git_add() {
 }
 
 
-git_commit() {
+function git_commit() {
 
     # $1 -- the type of files to commit
     

@@ -5,7 +5,7 @@ DIR=`dirname $0`
 source "scripts/utils/enviroment"
 
 
-test_result() {
+function test_result() {
 
     if [ ! -z "$2" ]
     then echo -e "\e[92m OK '$1': $2 \e[0m"
@@ -15,7 +15,7 @@ test_result() {
 }
 
 
-do_require_test() {
+function do_require_test() {
 
     # $1 -- Name of the required file
     # $2 -- The name of the variable derived from the file
@@ -27,7 +27,7 @@ do_require_test() {
 }
 
 
-do_existence_test() {
+function do_existence_test() {
 
     # $1 -- Name of the file
 

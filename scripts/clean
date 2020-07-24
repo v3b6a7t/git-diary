@@ -25,7 +25,7 @@ fi
 # ==================================
 
 
-info_message() {
+function info_message() {
 
     display info begin
     echo " Cleaning has been done! "
@@ -36,26 +36,26 @@ info_message() {
 }
 
 
-clean_data_config() {
+function clean_data_config() {
 
     if [ -d "$DIR_CONFIG" ]; then rm -r "$DIR_CONFIG"; fi
     if [ ! -d "$DIR_CONFIG" ]; then info_message; fi
 }
 
 
-clean_data_diary() {
+function clean_data_diary() {
     if [ -d "$DIR_DIARY" ]; then 
         rm -r "$DIR_DIARY"; 
     fi
 }
 
 
-clean_data_ssh() {
+function clean_data_ssh() {
     "$DIR/ssh" "--delete"
 }
 
 
-clean_data() {    
+function clean_data() {    
     
     case "$1" in
     

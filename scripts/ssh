@@ -16,7 +16,7 @@ require_directory "ssh"
 # SCRIPT FUNCTIONS DEFINITIONS
 #-----------------------------------
 
-show_ssh_key() {
+function show_ssh_key() {
 
     # $1 -- path to file ssh key
 
@@ -26,7 +26,7 @@ show_ssh_key() {
 }
 
 
-remove_ssh_key_from_agent() {
+function remove_ssh_key_from_agent() {
 
     # $1 -- path to file ssh key
 
@@ -46,7 +46,7 @@ remove_ssh_key_from_agent() {
 }
 
 
-remove_ssh_key_from_storage() {
+function remove_ssh_key_from_storage() {
 
     # $1 -- path to file ssh key
 
@@ -67,7 +67,7 @@ remove_ssh_key_from_storage() {
 }
 
 
-remove_ssh_key() {
+function remove_ssh_key() {
 
     # $1 -- path to file ssh key
 
@@ -87,7 +87,7 @@ remove_ssh_key() {
 }
 
 
-create_ssh_key() {
+function create_ssh_key() {
 
     # $1 -- path to file ssh key
 

@@ -11,7 +11,7 @@ source "$PATH_TO_SCRIPT"
 # SIGHT FUNCTION
 #--------------------
 
-sight() {
+function sight() {
 
     # $1 -- function to use
 
@@ -25,9 +25,8 @@ sight() {
 
 RM=`get_run_mode`; echo "RM=$RM"
 
-
 CB=`get_current_branch`; echo $CB
 
-
 RP=`get_run_param --message`; echo $RP
+
 get_run_param --message > /dev/null
