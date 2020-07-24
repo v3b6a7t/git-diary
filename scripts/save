@@ -13,13 +13,13 @@ require_source "display"
 
 # GET RUN MODE
 
-get_run_mode "DISPLAY_MODE"
+DISPLAY_MODE=`get_run_param "--display"`
 
 
 # CHECK rev-parse orgin/master
 
-get_current_branch "CURRENT_BRANCH"
-get_master_branch "MASTER_BRANCH"
+CURRENT_BRANCH=`get_current_branch`
+MASTER_BRANCH=`get_master_branch`
 
 GIT_REV_LIST=`git rev-list $CURRENT_BRANCH`
 GIT_REV_PARSE=`git rev-parse origin/master`
@@ -136,9 +136,9 @@ git_commit() {
 
     # $1 -- the type of files to commit
     
-    get_run_param "--message"
+    MESSAGE=`get_run_param "--message"`
 
-    COMMIT_MESSAGE=${__MESSAGE:-`date +'%Y-%m-%d %H:%M:%S.%3N'`}
+    COMMIT_MESSAGE=${MESSAGE:-`date +'%Y-%m-%d %H:%M:%S.%3N'`}
 
     save_info "Commit '$1'"
 

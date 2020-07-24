@@ -19,21 +19,19 @@ INST_FILES="$PATH_CONFIG $PATH_DIARY"
 
 get_run_mode() {
     
-    # $1 -- name value to return OR list of allowed parameters
-    # $2 -- optional name of the output variable IF the $1 variable contains parameters
+    # $1 -- list of allowed parameters
     
     # Exemples of use:
-    # get_run_mode "NAME_OF_RETURNED_VARIABLE"
-    # get_run_mode "delete|mode|action" "NAME_OF_RETURNED_VARIABLE"
-
-    if [ -z "$1" ]; then break; fi
+    # get_run_mode
+    # get_run_mode "delete|mode|action""
+    # get_run_mode "delete|mode|action"" "NAME_RETURN_VALUE"
 
 
     if [ -z $2 ]; then
 
         RUN_MODE=`echo "${BASH_ARGV[@]}" | grep -oP "\-{2}[\w\d\-\_]+"`
     
-        if [ ! -z "$RUN_MODE" ]; then printf -v $1 ${RUN_MODE:2}; fi
+        echo ${RUN_MODE:2};
 
     else 
 
@@ -59,10 +57,6 @@ get_run_param() {
     # You can use that too:
     # get_run_param "--mode" "MODE" --> name of returned variable $MODE
     # get_run_param "-p" "PARAM"    --> name of returned variable $PARAM
-    
-
-    if [ -z "$1" ]; then break; fi
-
 
     unset VAR_VALUE
 
@@ -78,16 +72,9 @@ get_run_param() {
 
     done
 
-    if [ -z "$2" ]; then 
-    
-        VAR_NAME="${1//-/_}"
-        
-        printf -v ${VAR_NAME^^} "$VAR_VALUE"
-
-    else
-
-        printf -v $2 "$VAR_VALUE"
-
+    if [ -z "$2" ]
+    then echo "$VAR_VALUE"
+    else printf -v $2 "$VAR_VALUE"
     fi
 
 }
@@ -188,8 +175,14 @@ get_config_value() {
 get_current_branch() {
 
     # $1 -- name value to return
+
+    CURRENT_BRANCH="`git branch --show-current`"
    
-    printf -v $1 "`git branch --show-current`"
+    if [ -z "$1" ]
+    then echo "$CURRENT_BRANCH"
+    else printf -v $1 "`git branch --show-current`"
+    fi
+
 }
 
 
@@ -208,7 +201,10 @@ get_master_branch() {
 
     if [ ! -z ${!VAR_NAME_IN_CONFIG_FILE} ] && [ `git branch | grep -oP "\s${!VAR_NAME_IN_CONFIG_FILE}$" -c` -gt 0 ]; then
 
-        printf -v $1 "${!VAR_NAME_IN_CONFIG_FILE}"
+        if [ -z "$1" ]
+        then echo "${!VAR_NAME_IN_CONFIG_FILE}"
+        else printf -v $1 "${!VAR_NAME_IN_CONFIG_FILE}"
+        fi
 
     else
 
@@ -218,7 +214,10 @@ get_master_branch() {
 
             MASTER_BRANCH_NAME=`git branch -vv | grep $REMOTE_BRANCH | cut -f 3 -d " "`
         
-           printf -v $1 "$MASTER_BRANCH_NAME"
+            if [ -z "$1" ]
+            then echo "$MASTER_BRANCH_NAME"
+            else printf -v $1 "$MASTER_BRANCH_NAME"
+            fi
         
         else 
 

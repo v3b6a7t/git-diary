@@ -131,7 +131,7 @@ if [ ! -z "$DIR_SSH" ] && [ ! -z "$SSH_EMAIL" ] && [ ! -z "$SSH_FILENAME" ]; the
 
     KEY_FILENAME="$DIR_SSH/$SSH_FILENAME";
 
-    get_run_mode "SSH_MODE"
+    SSH_MODE=`get_run_mode`
 
     case "$SSH_MODE" in
         

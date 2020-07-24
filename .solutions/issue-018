@@ -1,0 +1,33 @@
+#!/bin/bash
+
+PATH_TO_SCRIPT="`pwd`/scripts/utils/enviroment"
+
+
+source "$PATH_TO_SCRIPT"
+
+
+
+#--------------------
+# SIGHT FUNCTION
+#--------------------
+
+sight() {
+
+    # $1 -- function to use
+
+    if typeset -f $1 > /dev/null; then
+
+        echo "The '$1' is a function"
+
+    fi
+
+}
+
+RM=`get_run_mode`; echo "RM=$RM"
+
+
+CB=`get_current_branch`; echo $CB
+
+
+RP=`get_run_param --message`; echo $RP
+get_run_param --message > /dev/null

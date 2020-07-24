@@ -10,11 +10,11 @@ TEST_PARAM_SHOW="Ala ma kota"
 
 # TEST MODE & PARAMS
 
-get_run_mode    "ANY_MODE"
-get_run_mode    "show|delete|run-test" "ALLOW_MODE"
+ANY_MODE=`get_run_mode`
+get_run_mode "show|delete|run-test" ALLOW_MODE
 
-get_run_param   "--show"
-get_run_param   "--show" "SHOW"
+__SHOW=`get_run_param "--show"`
+get_run_param "--show" SHOW
 
 
 if [ -z "$__SHOW" ] || [ -z "$SHOW" ] || [ -z "$ANY_MODE" ] || [ -z "$ALLOW_MODE" ]; then
