@@ -5,7 +5,7 @@ source "scripts/utils/enviroment"
 
 if [ ! -f "$PATH_CONFIG" ]; then
 
-    "$DIR_SCRIPTS/config"
+    "$DIR_SCRIPTS/install"
 
     exit 2
 
